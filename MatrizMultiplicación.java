@@ -32,7 +32,7 @@ public class MatrizMultiplicación {
         
         matrizB = new int[r2][c2];
 
-        if (r1 == c2 || r2 == c1) {
+        if (c1 == r2) {
 
             matrizC = new int[r1][c2];
 
@@ -56,7 +56,7 @@ public class MatrizMultiplicación {
 
             System.out.print("\n-----Multipliación de las matrices-----\n");
             for (int i = 0; i <  matrizA.length; i++) {
-                for (int j = 0; j < matrizB[i].length; j++) {
+                for (int j = 0; j < matrizB[0].length; j++) {
                     for (int k = 0; k < matrizB.length; k++) {
                         matrizC[i][j] = matrizC[i][j] + matrizA[i][k] * matrizB[k][j];
                     }
@@ -72,7 +72,7 @@ public class MatrizMultiplicación {
             }
 
         } else {
-            System.out.println("Error");
+            System.out.println("Multiplicación no realizable");
         }
 
         System.out.println("-----Fin del programa-----");
