@@ -5,13 +5,8 @@ import java.io.IOException;
 public class CuadroMagico {
 
     public static BufferedReader bufer = new BufferedReader(new InputStreamReader(System.in));
-    public static int[] resultados;
+    public static int[] resultadosArreglo;
     public static int indice = 0;
-
-    // Validar que sea una matriz cuadrada
-    public static boolean validar(int r, int c) {
-        return r == c;
-    }
 
     // Proceso para pedir los datos del cuadro
     public static int[][] llenarDatos(int[][] m) throws IOException {
@@ -39,6 +34,7 @@ public class CuadroMagico {
         // Verificación de las columnas
         for (int i = 0; i < n; i++) {
             int sumaColumna = sumaColumnas(i, cuadro);
+            System.out.println("Suma de la columna " + i + ": " + sumaColumna);
             if (sumaColumna != sumaObjetivo) return false;
         }
 
@@ -56,6 +52,7 @@ public class CuadroMagico {
         for (int j = 0; j < m[r].length; j++) {
             suma += m[r][j];
         }
+        resultadosArreglo[indice++] = suma; // Guardar la suma en el arreglo
         return suma;
     }
 
@@ -65,6 +62,7 @@ public class CuadroMagico {
         for (int i = 0; i < m.length; i++) {
             suma += m[i][c];
         }
+        resultadosArreglo[indice++] = suma; // Guardar la suma en el arreglo
         return suma;
     }
 
@@ -74,6 +72,7 @@ public class CuadroMagico {
         for (int i = 0; i < m.length; i++) {
             suma += m[i][i];
         }
+        resultadosArreglo[indice++] = suma; // Guardar la suma en el arreglo
         return suma;
     }
 
@@ -83,6 +82,7 @@ public class CuadroMagico {
         for (int i = 0; i < m.length; i++) {
             suma += m[i][m.length - 1 - i];
         }
+        resultadosArreglo[indice++] = suma; // Guardar la suma en el arreglo
         return suma;
     }
 
@@ -98,18 +98,26 @@ public class CuadroMagico {
         columnas = Integer.parseInt(bufer.readLine());
 
         // Validar que sea una matriz cuadrada
-        if (!validar(renglones, columnas)) {
+        if (renglones != columnas) {
             System.out.println("No cumple con las dimensiones de un cuadro mágico (debe ser cuadrado)");
             System.exit(1);
         } else {
             // El programa del cuadro mágico
             cuadro = new int[renglones][columnas]; // Crear la matriz
+            resultadosArreglo = new int[renglones * columnas]; // Crear el arreglo para guardar las sumas (filas, columnas y diagonales)
+
             cuadro = llenarDatos(cuadro);
 
             if (esMagico(cuadro)) {
                 System.out.println("El cuadro es mágico");
             } else {
                 System.out.println("El cuadro no es mágico");
+            }
+
+            // Mostrar las sumas almacenadas en el arreglo
+            System.out.println("Suma de cada paso:");
+            for (int i = 0; i < resultadosArreglo.length; i++) {
+                System.out.println("Suma " + (i + 1) + ": " + resultadosArreglo[i]);
             }
         }
     }
